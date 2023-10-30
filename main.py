@@ -10,6 +10,7 @@ def index():
 @app.get("/query/{query}")
 async def answer_with_llamaindex(query: str):
     # インデックスの読み込み
+    print(f"query: {query}")
     storage_context = StorageContext.from_defaults(persist_dir="./storage")
     index = load_index_from_storage(storage_context)
     query_engine = index.as_query_engine()
