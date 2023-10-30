@@ -15,5 +15,5 @@ async def answer_with_llamaindex(query: str):
     storage_context = StorageContext.from_defaults(persist_dir="./storage")
     index = load_index_from_storage(storage_context)
     query_engine = index.as_query_engine()
-    answer = query_engine.query("質問：{query}")
+    answer = query_engine.query(f"質問：{query}")
     return {"Answer": f"{answer.response}"}
