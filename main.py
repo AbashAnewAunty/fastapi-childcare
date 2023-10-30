@@ -1,3 +1,4 @@
+import urllib.parse
 from fastapi import FastAPI
 from llama_index import StorageContext, load_index_from_storage
 
@@ -11,8 +12,9 @@ def index():
 async def answer_with_llamaindex(query: str):
     # インデックスの読み込み
     print(f"query: {query}")
+    decoded_text = urllib.parse.unquote(query)
     storage_context = StorageContext.from_defaults(persist_dir="./storage")
     index = load_index_from_storage(storage_context)
     query_engine = index.as_query_engine()
-    answer = query_engine.query("質問：{query}")
+    answer = query_engine.query("質問：{decoded_text}")
     return {"Answer": f"{answer.response}"}
